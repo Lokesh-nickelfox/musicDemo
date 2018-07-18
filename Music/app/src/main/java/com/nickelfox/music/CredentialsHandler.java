@@ -15,7 +15,10 @@ public class CredentialsHandler {
         public static void setToken( String token, long expiresIn, TimeUnit unit) {
 
             long now = System.currentTimeMillis();
-            long expiresAt = now + unit.toMillis(expiresIn);
+            long expiresAt = 0;
+            if (unit != null) {
+                expiresAt = now + unit.toMillis(expiresIn);
+            }
 
             SharedPreferences.Editor editor = ApplicationController.getInstance().getPrefs().edit();
             editor.putString(ACCESS_TOKEN, token);

@@ -1,27 +1,27 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
+ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
 	package
-		ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:11-47
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:11-47
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
+		ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:2:1-7:12
 application
-ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:5:5-19
+ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml:5:5-19
 uses-sdk
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-		ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-		ADDED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
-		INJECTED from /Users/taruntrikha/Desktop/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		ADDED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml
+		INJECTED from /Users/lokesh/Documents/NickelFox_Projects/musicDemo/Music/spotify-api/src/main/AndroidManifest.xml

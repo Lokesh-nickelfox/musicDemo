@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,56 +15,109 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Music"
+            android:text="MUSIC"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:fontFamily="@font/avenir_next" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="@font/avenir_next"
         android:text="My Playlists"
-        android:textColor="@color/colorPrimaryDark"
-
-        />
+        android:textColor="@color/colorPrimaryDark" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_playlist"
+        <FrameLayout
+            android:id="@+id/frame_layout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:paddingBottom="4dp"
-            android:clipToPadding="false"/>
+            android:layout_height="wrap_content">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_tacks"
+            <ProgressBar
+                android:id="@+id/progress_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_playlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:clipToPadding="false"
+                android:paddingBottom="4dp" />
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_below="@+id/recyclerview_playlist"
-            android:layout_above="@+id/btn_select_Songs"
-            >
+            android:layout_above="@+id/frame_layout"
+            android:layout_below="@+id/frame_layout2">
 
-        </android.support.v7.widget.RecyclerView>
+            <ProgressBar
+                android:id="@+id/progress_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerview_tacks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp" />
+        </FrameLayout>
 
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_select_Songs"
+        <FrameLayout
+            android:id="@+id/frame_layout"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimaryDark"
-            android:text="Select Songs"
-            android:textColor="#ffff" />
+            android:layout_alignParentBottom="true">
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_select_Songs"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryDark"
+                android:fontFamily="@font/avenir_next"
+                android:text="Select Songs"
+                android:textColor="#ffff" />
+
+            <LinearLayout
+                android:id="@+id/select_songs_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/clear_selections"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@android:color/holo_red_dark"
+                    android:fontFamily="@font/avenir_next"
+                    android:text="Clear"
+                    android:textColor="#ffff" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/done"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="@color/colorPrimaryDark"
+                    android:fontFamily="@font/avenir_next"
+                    android:text="Done"
+                    android:textColor="#ffff" />
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
 
 

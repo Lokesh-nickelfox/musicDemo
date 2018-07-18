@@ -22,7 +22,15 @@ public class TrackSimple implements Parcelable {
     public int track_number;
     public String type;
     public String uri;
+    public Boolean isPlaying = false;
 
+    public Boolean getPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(Boolean playing) {
+        isPlaying = playing;
+    }
 
     @Override
     public int describeContents() {
