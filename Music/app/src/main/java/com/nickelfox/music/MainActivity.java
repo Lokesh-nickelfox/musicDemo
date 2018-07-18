@@ -5,10 +5,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -88,6 +92,19 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
         recyclerview_playlist.setAdapter(pLayListViewAdapter);
         playListPresenter = new PlayListPresenter(this);
         playListPresenter.getMyPlayList();
+
+
+        int[] ATTRS = new int[]{android.R.attr.listDivider};
+
+        TypedArray a = obtainStyledAttributes(ATTRS);
+        Drawable divider = a.getDrawable(0);
+        int insetLeft = getResources().getDimensionPixelSize(R.dimen.left_divider_margin);
+        InsetDrawable insetDivider = new InsetDrawable(divider, insetLeft, 0, 0, 0);
+        a.recycle();
+
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(insetDivider);
+        recyclerview_tacks.addItemDecoration(itemDecoration);
 
 
         recyclerview_tacks.setLayoutManager(new LinearLayoutManager(this));
