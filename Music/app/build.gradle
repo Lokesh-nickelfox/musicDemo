@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.nickelfox.music"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+        compile 'com.squareup.picasso:picasso:2.5.2'
+        compile 'com.google.guava:guava:18.0'
+        compile project(':spotify-api')
+        implementation 'com.android.support:appcompat-v7:27.0.0-alpha3'
+        implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.2'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+        implementation 'com.spotify.sdk:spotify-android-auth-1.0.0@aar'
+        implementation 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
+
+
+        implementation 'com.android.support:recyclerview-v7:27.1.1'
+        implementation 'com.android.support:cardview-v7:27.1.1'
+        implementation 'io.reactivex.rxjava2:rxjava:2.1.9'
+        implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+        //Retrofit
+        implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+        implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+        implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+        //GSON body parser
+        implementation 'com.google.code.gson:gson:2.8.2'
+//okhttp interceptor
+        implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+//    image processing
+        implementation 'com.github.bumptech.glide:glide:4.7.1'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+        implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+        implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
+
+    }
+}
+
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}

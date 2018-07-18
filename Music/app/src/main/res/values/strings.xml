@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Music</string>
+    <string name="login_with_spotify">LOGIN WITH <b>SPOTIFY</b> </string>
+    <string name="login_button">Login to Spotify</string>
+    <string name="search">Search</string>
+    <string name="cover_art_description">Cover art</string>
+    <string name="search_hint">Search tracks</string>
+</resources>
