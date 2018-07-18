@@ -4,7 +4,6 @@
     android:layout_height="50dp"
     android:layout_marginBottom="8dp"
     android:layout_marginTop="8dp"
-    android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -15,9 +14,10 @@
         android:contentDescription="@string/cover_art_description" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/entity_title"
@@ -42,5 +42,13 @@
             android:textSize="11sp" />
 
     </LinearLayout>
+
+    <ToggleButton
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:textOff=""
+        android:textOn=""
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/play_pause" />
 
 </LinearLayout>
