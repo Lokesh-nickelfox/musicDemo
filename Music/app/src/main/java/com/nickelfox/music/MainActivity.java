@@ -1,8 +1,12 @@
 package com.nickelfox.music;
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.nickelfox.music.activity.Player;
 import com.nickelfox.music.adapter.PLayListViewAdapter;
 import com.nickelfox.music.adapter.TrackResultsAdapter;
 import com.nickelfox.music.networking.presenter.IPlaylistView;
@@ -45,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
 
     TrackListPresenter trackListPresenter;
     List<PlaylistSimple> playlist = new ArrayList<PlaylistSimple>();
+
+    private Player mPlayer;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, MainActivity.class);
@@ -86,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
         recyclerview_tacks.setLayoutManager(new LinearLayoutManager(this));
         trackResultsAdapter = new TrackResultsAdapter(this, this);
         recyclerview_tacks.setAdapter(trackResultsAdapter);
+
+        bindService(PlayerService.getIntent(this), mServiceConnection, Activity.BIND_AUTO_CREATE);
     }
 
 
@@ -93,11 +102,15 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
     protected void onPause() {
         super.onPause();
 
+        startService(PlayerService.getIntent(this));
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+            stopService(PlayerService.getIntent(this));
+
 
     }
 
@@ -111,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
     protected void onDestroy() {
 
         super.onDestroy();
+        this.unbindService(mServiceConnection);
     }
 
     @Override
@@ -118,6 +132,9 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
 
         playlist.addAll(responseBody.items);
         pLayListViewAdapter.notifyDataSetChanged();
+
+        trackListPresenter = new TrackListPresenter(this, responseBody.items.get(0).tracks.href);
+        trackListPresenter.getTracks();
 
 
     }
@@ -167,25 +184,60 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
 
     @Override
     public void onSucessTackList(Pager<PlaylistTrack> responseBody) {
-        trackResultsAdapter.clearData();
-        List<Track> trackList = new ArrayList<Track>();
-        for (int i = 0; i < responseBody.items.size(); i++) {
-            Track track = responseBody.items.get(i).track;
-            trackList.add(track);
 
+        if (responseBody.items != null && responseBody.items.size() > 0) {
+            trackResultsAdapter.clearData();
+            List<Track> trackList = new ArrayList<Track>();
+            for (int i = 0; i < responseBody.items.size(); i++) {
+                Track track = responseBody.items.get(i).track;
+                trackList.add(track);
+
+            }
+            trackResultsAdapter.addData(trackList);
+            trackResultsAdapter.notifyDataSetChanged();
         }
-        trackResultsAdapter.addData(trackList);
-        trackResultsAdapter.notifyDataSetChanged();
 
-        Toast.makeText(this, " " + responseBody.items.size(), Toast.LENGTH_SHORT).show();
 
 
     }
+
+
+
 
     @Override
     public void onItemSelected(View itemView, Track item) {
+        String previewUrl = item.href;
 
+        if (previewUrl == null) {
 
-        Toast.makeText(this, " " + item.duration_ms, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (mPlayer == null) return;
+
+        String currentTrackUrl = mPlayer.getCurrentTrack();
+
+        if (currentTrackUrl == null || !currentTrackUrl.equals(previewUrl)) {
+            mPlayer.play(previewUrl);
+        } else if (mPlayer.isPlaying()) {
+            mPlayer.pause();
+        } else {
+            mPlayer.resume();
+        }
     }
+
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mPlayer = ((PlayerService.PlayerBinder) service).getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mPlayer = null;
+        }
+    };
+
+
 }
