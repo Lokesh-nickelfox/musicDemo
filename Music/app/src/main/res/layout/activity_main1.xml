@@ -41,7 +41,9 @@
             android:id="@+id/recyclerview_playlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp"
+            android:paddingBottom="4dp"
+            android:clipToPadding="false"/>
         <View
             android:id="@+id/underline"
             android:layout_width="match_parent"
