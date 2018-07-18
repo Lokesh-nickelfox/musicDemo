@@ -37,7 +37,19 @@ import kaaes.spotify.webapi.android.models.PlaylistTrack;
 import kaaes.spotify.webapi.android.models.PlaylistTracksInformation;
 import kaaes.spotify.webapi.android.models.Track;
 
-public class MainActivity extends AppCompatActivity implements IPlaylistView, PLayListViewAdapter.OnClickListener, ITrackView, TrackResultsAdapter.ItemSelectedListener {
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Connectivity;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Metadata;
+import com.spotify.sdk.android.player.PlaybackBitrate;
+import com.spotify.sdk.android.player.PlaybackState;
+
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.Spotify;
+import com.spotify.sdk.android.player.SpotifyPlayer;
+
+public class MainActivity extends AppCompatActivity implements  com.spotify.sdk.android.player.Player.NotificationCallback, ConnectionStateCallback,IPlaylistView, PLayListViewAdapter.OnClickListener, ITrackView, TrackResultsAdapter.ItemSelectedListener {
 
     static final String EXTRA_TOKEN = "EXTRA_TOKEN";
     private static final String KEY_CURRENT_QUERY = "CURRENT_QUERY";
@@ -55,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
     TrackListPresenter trackListPresenter;
     List<PlaylistSimple> playlist = new ArrayList<PlaylistSimple>();
 
-    private Player mPlayer;
+    private com.spotify.sdk.android.player.Player mPlayer;
 
     public static Intent createIntent(Context context) {
         return new Intent(context, MainActivity.class);
     }
-
+    private static final String CLIENT_ID = "88f15734d7af47ff8f6bd79421dad3f1";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -110,23 +122,23 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
         recyclerview_tacks.setLayoutManager(new LinearLayoutManager(this));
         trackResultsAdapter = new TrackResultsAdapter(this, this);
         recyclerview_tacks.setAdapter(trackResultsAdapter);
-
-        bindService(PlayerService.getIntent(this), mServiceConnection, Activity.BIND_AUTO_CREATE);
+        onAuthenticationComplete(token);
+    //    bindService(PlayerService.getIntent(this), mServiceConnection, Activity.BIND_AUTO_CREATE);
     }
 
-
+/*
     @Override
     protected void onPause() {
         super.onPause();
 
-        startService(PlayerService.getIntent(this));
+     //   startService(PlayerService.getIntent(this));
 
-    }
+    }*/
 
     @Override
     protected void onResume() {
         super.onResume();
-            stopService(PlayerService.getIntent(this));
+           // stopService(PlayerService.getIntent(this));
 
 
     }
@@ -137,12 +149,12 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
 
     }
 
-    @Override
+   /* @Override
     protected void onDestroy() {
 
         super.onDestroy();
-        this.unbindService(mServiceConnection);
-    }
+       // this.unbindService(mServiceConnection);
+    }*/
 
     @Override
     public void onSucess(Pager<PlaylistSimple> responseBody) {
@@ -219,17 +231,16 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
     }
 
 
-
-
     @Override
     public void onItemSelected(View itemView, Track item) {
-        String previewUrl = item.href;
+    /*    String previewUrl = item.preview_url;
 
         if (previewUrl == null) {
 
             return;
         }
 
+        Toast.makeText(this, item.preview_url, Toast.LENGTH_SHORT).show();
         if (mPlayer == null) return;
 
         String currentTrackUrl = mPlayer.getCurrentTrack();
@@ -240,9 +251,60 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
             mPlayer.pause();
         } else {
             mPlayer.resume();
+        }*/
+
+        mPlayer.playUri(null, item.href, 0, 0);
+    }
+
+    private boolean isLoggedIn() {
+        return mPlayer != null ;
+    }
+
+
+
+    @Override
+    public void onLoggedIn() {
+        Toast.makeText(this, "Logged IN", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoggedOut() {
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onLoginFailed(Error error) {
+        Toast.makeText(this, "LoggedIn failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTemporaryError() {
+
+    }
+
+    @Override
+    public void onConnectionMessage(String message) {
+
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mPlayer != null) {
+            mPlayer.removeNotificationCallback(MainActivity.this);
+            mPlayer.removeConnectionStateCallback(MainActivity.this);
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        Spotify.destroyPlayer(this);
+        super.onDestroy();
+    }
+
+/*
 
     private ServiceConnection mServiceConnection = new ServiceConnection() {
         @Override
@@ -255,6 +317,44 @@ public class MainActivity extends AppCompatActivity implements IPlaylistView, PL
             mPlayer = null;
         }
     };
+*/
+
+    private void onAuthenticationComplete(final String auth_token) {
 
 
+
+        if(mPlayer == null)
+        {
+            Config playerConfig = new Config(this, auth_token, CLIENT_ID);
+
+            Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
+                @Override
+                public void onInitialized(SpotifyPlayer spotifyPlayer) {
+
+                    mPlayer = spotifyPlayer;
+                    mPlayer.addConnectionStateCallback(MainActivity.this);
+                    mPlayer.addNotificationCallback(MainActivity.this);
+
+                }
+
+                @Override
+                public void onError(Throwable throwable) {
+
+                }
+            });
+        } else {
+            mPlayer.login(auth_token);
+        }
+
+    }
+
+    @Override
+    public void onPlaybackEvent(PlayerEvent playerEvent) {
+        Toast.makeText(this, "PLayEvent", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPlaybackError(Error error) {
+        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+    }
 }
